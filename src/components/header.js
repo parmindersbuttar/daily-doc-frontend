@@ -52,11 +52,9 @@ const StyledLink = styled(Link)`
 const Header = (props) => {
   const [{ auth }, dispatch] = useStateValue();
   const { pathname } = history.location
-
   const handleLogout = async () => {
     await dispatch(logout())
   }
-  console.log(pathname)
 
   return (
     <Nav>
@@ -69,13 +67,15 @@ const Header = (props) => {
           <MenuItem>
             <StyledLink to="/features" active={pathname === '/features'}>Features</StyledLink>
           </MenuItem>
-          <MenuItem>
-            <StyledLink to="/sign-in">Sign In</StyledLink>
-          </MenuItem>
+          {!auth.logged && 
+            <MenuItem>
+              <StyledLink to="/sign-in">Sign In</StyledLink>
+            </MenuItem>
+          }
         </Menu>
-        <Button color="primary" onClick={() => { }}>Try for Free</Button>
          {
-        //   auth.logged && <Button gradient onClick={() => handleLogout()}>Logout</Button>
+          auth.logged ? <Button onClick={() => handleLogout()}>Logout</Button> :
+          <Button color="primary" onClick={() => { }}>Try for Free</Button>
         }
       </Right>
     </Nav>

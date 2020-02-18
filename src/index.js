@@ -2,12 +2,12 @@ import React from 'react';
 import {
     render
 } from 'react-dom'
-import Root from './routes'
+import App from './App'
 
 import registerServiceWorker from './registerServiceWorker'
 
 
-render( <Root /> ,
+render( <App /> ,
     document.getElementById('root')
 );
 registerServiceWorker();

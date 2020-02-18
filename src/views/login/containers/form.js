@@ -1,43 +1,77 @@
 import React from 'react';
-import {Formik} from 'formik';
+import { useFormik } from 'formik';
 import Button from '../../../components/button';
 import FormGroup from '../../../components/form/formGroup';
 import Input from '../../../components/form/input'
 import ErrorText from "../../../components/form/error";
 
-const LoginForm = props => (
-  <Formik
-    initialValues={{username: '', password: ''}}
-    {...props}
-  >
-    {({handleChange, handleBlur, values, handleSubmit, isSubmitting, errors, touched}) => (
-      <FormGroup>
-        {errors.genericError &&
-          <ErrorText>{errors.genericError}</ErrorText>
-        }
-        <Input
-          name='username'
-          id='username'
-          placeholder={'Username'}
-          onChange={handleChange('username')}
-          onBlur={handleBlur('username')}
-          error={errors.username}
-          value={values.username}
+const validate = values => {
+  const errors = {};
+
+  if (!values.email) {
+    errors.email = 'Required';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address';
+  }
+
+  if (!values.password) {
+    errors.password = 'Required';
+  } else if (values.password.length < 4) {
+    errors.password = 'Must be 4 characters or more';
+  }
+
+  return errors;
+};
+
+const LoginForm = props => {
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: ''
+    },
+    validate,
+    onSubmit: values => {
+      props.onSubmit(values)
+    }
+  });
+  return (
+    <form onSubmit={formik.handleSubmit}>
+      {props.error &&
+        <ErrorText>{props.error}</ErrorText>
+      }
+        <FormGroup>
+          <Input
+            name='email'
+            id='email'
+            autoComplete='email'
+            placeholder={'Email Address'}
+            onChange={formik.handleChange('email')}
+            onBlur={formik.handleBlur('email')}
+            error={!!formik.errors.email}
+            value={formik.values.email}
         />
+          {formik.errors.email &&
+            <ErrorText>{formik.errors.email}</ErrorText>
+        }
+      </FormGroup>
+      <FormGroup>
         <Input
           id='password'
           name='password'
+          autoComplete='current-password'
           type={'password'}
           placeholder={'Password'}
-          onChange={handleChange('password')}
-          onBlur={handleBlur('password')}
-          error={errors.password}
-          value={values.password}
+          onChange={formik.handleChange('password')}
+          onBlur={formik.handleBlur('password')}
+          error={formik.errors.password}
+          value={formik.values.password}
         />
-        <Button primary large onClick={handleSubmit} type="submit" >Login</Button>
       </FormGroup>
-    )}
-  </Formik>
-);
+
+          <Button primary large type="submit">Login</Button>
+        
+    </form>
+  )
+};
 
 export default LoginForm;

@@ -90,7 +90,7 @@ const AdditionalBenefits = () => {
           <Container>
               {items.map((item, key) => {
                   return (
-                      <Paper>
+                      <Paper key={key}>
                           <Figure>
                               <Img src={item.image} alt={item.title}/>
                           </Figure>
