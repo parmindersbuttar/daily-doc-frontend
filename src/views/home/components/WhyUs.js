@@ -9,6 +9,7 @@ const Main = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: 150px;
+    padding: 20px;
 `;
 
 const Container = styled.div`
@@ -21,6 +22,10 @@ const Container = styled.div`
     border-radius: 10px;
     padding: 20px 40px;
     margin-top: 40px;
+    @media (max-width: 768px) {
+        width: 100%;
+        flex-direction: column;
+    }
 `;
 
 const List = styled.ul`
@@ -49,6 +54,14 @@ const understand = [
     'How much time you spend in meetings, answering emails, and on social media',
     'When you’re most (and least) productive each day',
     'The ebbs and flows of your day so you can do more meaningful work'
+]
+
+const optimise = [
+    'Daily schedule for deep work and productivity',
+    'Focus to get more done in less time and fight burnout',
+    'Structured Sprints to follow your natural high and lows of energy',
+    'Digital habits to stop multitasking and hit your long-term goals',
+    'Feedback loop to see progress, boost motivation, and make real changes to how you work'
 ]
 
 const WhyUs = () => {

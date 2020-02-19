@@ -14,6 +14,7 @@ const Main = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: 150px;
+    padding: 20px;
 `;
 
 const Container = styled.div`
@@ -22,6 +23,10 @@ const Container = styled.div`
     align-items: center;
     flex-wrap: wrap;
     max-width: 70%;
+    @media (max-width: 768px) {
+        max-width: 100%;
+        flex-direction: column;
+    }
     margin-top: 30px;
 `;
 
@@ -43,6 +48,11 @@ const Paper = styled.div`
     padding: 30px 20px;
     width: 30.33%;
     margin: 1%;
+    @media (max-width: 768px) {
+        width: 100%;
+        margin: 0;
+        margin-top: 20px;
+    }
     min-height: 332px;
 `;
 

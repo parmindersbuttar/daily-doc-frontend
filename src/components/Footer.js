@@ -36,7 +36,11 @@ const Heading = styled.h2`
 `;
 
 const StyledButton = styled(OutlinedButton)`
-    margin-bottom: 100px
+    margin-bottom: 100px;
+    &:hover {
+        background-color: #FFFFFF;
+        color: #000000;
+    }
 `;
 
 const SocialMedia = styled.div`

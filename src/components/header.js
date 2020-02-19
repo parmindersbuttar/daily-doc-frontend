@@ -43,7 +43,7 @@ const StyledLink = styled(Link)`
   display: inline-block;
   border-bottom: ${props => props.active ? '4px solid #4BBAFB;' : 0};
   color: ${props => props.active ? '#4BBAFB' : '#7E8594'};
-  padding: 5px 10px;
+  padding: 5px 20px;
   &:hover {
     color: #4BBAFB;
   }
@@ -54,6 +54,10 @@ const Header = (props) => {
   const { pathname } = history.location
   const handleLogout = async () => {
     await dispatch(logout())
+  }
+
+  const gotoPlans = () => {
+    history.push('/plans');
   }
 
   return (
@@ -75,7 +79,7 @@ const Header = (props) => {
         </Menu>
          {
           auth.logged ? <Button onClick={() => handleLogout()}>Logout</Button> :
-          <Button color="primary" onClick={() => { }}>Try for Free</Button>
+          <Button color="primary" onClick={() => gotoPlans() }>Try for Free</Button>
         }
       </Right>
     </Nav>

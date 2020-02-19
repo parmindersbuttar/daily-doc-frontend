@@ -7,7 +7,7 @@ import Button from '../../../components/button'
 
 const Main = styled.div`
   display: flex;
-  padding: 20px 50px;
+  padding: 20px;
   @media (max-width: 768px) {
     flex-direction: column;
   }

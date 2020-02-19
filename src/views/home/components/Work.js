@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import TrackingImage from '../../../assets/images/tracking.svg';
+import AutomaticTrackingImage from '../../../assets/images/automatic-tracking.svg';
+import StructuredFeatureImage from '../../../assets/images/structured-feature.svg';
+import TrendsImage from '../../../assets/images/trends.svg';
+import OfflineImage from '../../../assets/images/offline-time.svg';
 import Heading from '../../../components/Heading';
 import Description from '../../../components/Description';
 
@@ -10,6 +14,7 @@ const Main = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: 150px;
+    padding: 20px;
 `;
 
 const Container = styled.div`
@@ -51,7 +56,7 @@ const Img = styled.img`
 const features = [
     {
         title: 'Automatic time tracking',
-        image: TrackingImage
+        image: AutomaticTrackingImage
         
     },
     {
@@ -60,15 +65,15 @@ const features = [
     },
     {
         title: 'Structured sprint',
-        image: TrackingImage
+        image: StructuredFeatureImage
     },
     {
         title: 'Trends nd weekly reports',
-        image: TrackingImage
+        image: TrendsImage
     },
     {
         title: 'Offline time',
-        image: TrackingImage
+        image: OfflineImage
     }
 ]
 
