@@ -86,6 +86,7 @@ const PlanTerm = styled.p`
 
 const PlanFeature = styled.ul`
   margin: 20px 0;
+  padding-left: 30px;
   list-style-image: url(${CheckImage});
 `;
 
@@ -107,7 +108,6 @@ const Plans = () => {
       state: { planId }
     })
   }
-
   return (
     <Container>
       <Spinner show={isLoading} />
@@ -115,7 +115,7 @@ const Plans = () => {
       <Title>Plans</Title>
       <Description>Flexible plans to meet your time management needs.</Description>
       <PlanContainer>
-        { plans.data && plans.data.map(plan => {
+        {plans.data && plans.data.map(plan => {
           return (
             <PlanBox key={plan.id}>
               <PlanTitle>
@@ -124,7 +124,9 @@ const Plans = () => {
               <PlanPrice>{`${plan.currency}${plan.price}`}</PlanPrice>
               <PlanTerm>Monthly</PlanTerm>
               <PlanFeature>
-                <Feature>Work Journal</Feature>
+                {plan.feature && plan.feature.trim().split(',').map((f, key) => {
+                  return <Feature key={key}>{f}</Feature>
+                })}
               </PlanFeature>
               <Button large onClick={() => gotoRegistration(plan.id)}>Get Premium</Button>
             </PlanBox>

@@ -9,6 +9,7 @@ import Login from '../views/login';
 import Registration from '../views/registration';
 import Home from '../views/home';
 import Plans from '../views/plans';
+import NotFound from '../views/notFound';
 import Features from '../views/features';
 import useLogin from '../state/auth/hooks/useLogin';
 import Spinner from '../components/spinner'
@@ -35,6 +36,7 @@ const Root = props => {
                 <Route exact path="/features" component={Features} />
                 <Route exact path="/plans" component={Plans} />
                 <Route exact path="/registration" component={Registration} />
+                <Route component={NotFound} />
               </Switch>
             </Content>
             <Footer/>
