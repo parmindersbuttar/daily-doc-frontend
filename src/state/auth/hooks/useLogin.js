@@ -28,11 +28,11 @@ const useProducts = () => {
     }
   }
 
-  const registerUser = async (credentials) => {
+  const registerUser = async (credentials, card) => {
     console.log(credentials)
     try {
       setIsLoading(true);
-      const resp = await registerApi(credentials);
+      const resp = await registerApi({...credentials, card});
       setIsLoading(false);
       if (resp.msg) {
         dispatch(loginFailed(resp.msg));

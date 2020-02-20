@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
 
 import usePlans from '../../state/plans/hooks/usePlan';
 import useLogin from '../../state/auth/hooks/useLogin';
@@ -23,6 +25,8 @@ const Title = styled.h3`
   color: #000000;
 `;
 
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
+
 const Registration = (props) => {
   const { planId } = props.location.state;
   const { auth, registerUser, isLoading } = useLogin();
@@ -33,12 +37,15 @@ const Registration = (props) => {
       <FormContainer>
         <Logo>Daily Doc</Logo>
         <Title>Sign Up</Title>
-        <Form
-          onSubmit={registerUser}
-          error={auth.error}
-          plans={plans.data}
-          selectedPlan={planId}
-        />
+        <Elements stripe={stripePromise}>
+          <Form
+            onSubmit={registerUser}
+            error={auth.error}
+            plans={plans.data}
+            selectedPlan={planId}
+          />
+        </Elements>
+      
       </FormContainer>
     </Container>
   )

@@ -1,10 +1,12 @@
 import React from 'react';
 import { useFormik } from 'formik';
+import {useStripe, useElements, CardElement} from '@stripe/react-stripe-js';
 import Button from '../../../components/button';
 import FormGroup from '../../../components/form/formGroup';
 import Input from '../../../components/form/input';
 import Select from '../../../components/form/Select';
 import ErrorText from "../../../components/form/error";
+import CardSection from '../components/CardSection';
 
 const validate = values => {
   const errors = {};
@@ -40,7 +42,23 @@ const validate = values => {
 };
 
 const LoginForm = props => {
+  const stripe = useStripe();
+  const elements = useElements();
   const { onSubmit, selectedPlan, error, plans } = props;
+
+  function stripeTokenHandler(values, {source}) {
+    const card = {
+      brand: source.card.brand,
+      exp_month: source.card.exp_month,
+      exp_year: source.card.exp_year,
+      last4: source.card.last4,
+      name: values.name,
+      type: 'card',
+      id: source.id
+    }
+   onSubmit(values, card)
+  }
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -51,8 +69,26 @@ const LoginForm = props => {
 
     },
     validate,
-    onSubmit: values => {
-      onSubmit(values)
+    onSubmit: async (values) => {
+
+    if (!stripe || !elements) {
+      // Stripe.js has not yet loaded.
+      // Make  sure to disable form submission until Stripe.js has loaded.
+      return;
+    }
+
+    const card = elements.getElement(CardElement);
+    const result = await stripe.createSource(card);
+
+    if (result.error) {
+      // Show error to your customer.
+      console.log(result.error.message);
+    } else {
+      // Send the token to your server.
+      // This function does not exist yet; we will define it in the next step.
+      stripeTokenHandler(values, result);
+    }
+     
     }
   });
   return (
@@ -147,7 +183,9 @@ const LoginForm = props => {
         }
       </FormGroup>
 
-      <Button primary large type="submit">Register</Button>
+      <CardSection />
+
+      <Button disabled={!stripe} primary large type="submit">Register</Button>
         
     </form>
   )
