@@ -28,8 +28,8 @@ const useProducts = () => {
       setIsLoading(true);
       const resp = await loginApi(credentials);
       setIsLoading(false);
-      if (resp.msg) {
-        dispatch(loginFailed(resp.msg));
+      if (resp.msg || resp.error) {
+        dispatch(loginFailed(resp.msg || resp.error));
       } else {
         localStorage.setItem('token', resp.token);
         dispatch(loginSuccess(resp.user));
@@ -47,15 +47,15 @@ const useProducts = () => {
       setIsLoading(true);
       const resp = await recoverPasswordApi(credentials);
       setIsLoading(false);
-      if (resp.msg) {
-        dispatch(recoverPasswordFailed(resp.msg));
-      } else {
+      if (resp.success) {
         sentEmailSent(true);
         dispatch(recoverPasswordSuccess());
+      } else {
+        dispatch(recoverPasswordFailed(resp.msg || resp.error));
       }
     } catch (err) {
       setIsLoading(false);
-      dispatch(recoverPasswordFailed('Something went wrong. Please try after some time'));
+      dispatch(loginFailed('Something went wrong. Please try after some time'));
       console.log('recoverPassword: ', err)
     }
   }
@@ -65,27 +65,26 @@ const useProducts = () => {
       setIsLoading(true);
       const resp = await resetPasswordApi(credentials);
       setIsLoading(false);
-      if (resp.msg) {
-        dispatch(resetPasswordFailed(resp.msg));
-      } else {
+      if (resp.success) {
         sentEmailSent(true);
         dispatch(resetPasswordSuccess());
+      } else {
+        dispatch(resetPasswordFailed(resp.msg || resp.error));
       }
     } catch (err) {
       setIsLoading(false);
-      dispatch(resetPasswordFailed('Something went wrong. Please try after some time'));
+      dispatch(loginFailed('Something went wrong. Please try after some time'));
       console.log('resetPassword: ', err)
     }
   }
 
   const registerUser = async (credentials, card) => {
-    console.log(credentials)
     try {
       setIsLoading(true);
       const resp = await registerApi({...credentials, card});
       setIsLoading(false);
-      if (resp.msg) {
-        dispatch(loginFailed(resp.msg));
+      if (resp.msg || resp.error) {
+        dispatch(loginFailed(resp.msg || resp.error));
       } else {
         localStorage.setItem('token', resp.token);
         dispatch(loginSuccess(resp.user));
@@ -125,12 +124,11 @@ const useProducts = () => {
     try {
       setIsLoading(true);
       const resp = await updateApi({...credentials});
-      console.log(resp)
       setIsLoading(false);
-      if (resp.msg) {
-        dispatch(loginFailed(resp.msg));
-      } else if(resp) {
+      if (resp.success) {
         dispatch(loginSuccess(resp.user));
+      } else if(resp) {
+        dispatch(loginFailed(resp.msg || resp.error));       
       }
     } catch (err) {
       setIsLoading(false);
