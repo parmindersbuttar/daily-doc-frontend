@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components'
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
@@ -31,6 +31,12 @@ const Registration = (props) => {
   const { planId } = props.location.state;
   const { auth, registerUser, isLoading } = useLogin();
   const { plans } = usePlans();
+  useEffect(() => {
+    if (auth.logged) {
+      props.history.push('/');
+    }
+  }, [auth]);
+
   return (
     <Container>
       <Spinner show={isLoading} />

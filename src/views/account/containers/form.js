@@ -1,9 +1,8 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { Link } from 'react-router-dom';
 import Button from '../../../components/button';
 import FormGroup from '../../../components/form/formGroup';
-import Input from '../../../components/form/input'
+import Input from '../../../components/form/input';
 import ErrorText from "../../../components/form/error";
 
 const validate = values => {
@@ -15,30 +14,38 @@ const validate = values => {
     errors.email = 'Invalid email address';
   }
 
-  if (!values.password) {
-    errors.password = 'Password is required';
-  } else if (values.password.length < 4) {
-    errors.password = 'Must be 4 characters or more';
+  if (!values.name) {
+    errors.name = 'Name is required';
+  } else if (values.name.length < 4) {
+    errors.name = 'Name must be 4 characters';
+  }
+
+  if (values.password && values.password.length < 4) {
+    errors.password = 'password must be 4 characters or more';
   }
 
   return errors;
 };
 
-const LoginForm = props => {
+const UserForm = props => {
+
+  const { onSubmit, error, user } = props;
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: ''
+      email: user.email,
+      password: '',
+      name: user.name
+
     },
     validate,
-    onSubmit: values => {
-      props.onSubmit(values)
+    onSubmit: async (values) => {
+      onSubmit(values);
     }
   });
   return (
     <form onSubmit={formik.handleSubmit}>
       {props.error &&
-        <ErrorText>{props.error}</ErrorText>
+        <ErrorText>{error}</ErrorText>
       }
         <FormGroup>
           <Input
@@ -56,6 +63,22 @@ const LoginForm = props => {
         }
       </FormGroup>
       <FormGroup>
+          <Input
+            name='name'
+            id='name'
+            autoComplete='name'
+            placeholder={'Name'}
+            onChange={formik.handleChange('name')}
+            onBlur={formik.handleBlur('name')}
+            error={!!formik.errors.name}
+            value={formik.values.name}
+        />
+          {formik.errors.name &&
+            <ErrorText>{formik.errors.name}</ErrorText>
+          }
+      </FormGroup>
+
+      <FormGroup>
         <Input
           id='password'
           name='password'
@@ -67,16 +90,15 @@ const LoginForm = props => {
           error={formik.errors.password}
           value={formik.values.password}
         />
+        {formik.errors.password &&
+          <ErrorText>{formik.errors.password}</ErrorText>
+        }
       </FormGroup>
-        <Link to="/recover-password" style={{
-          display: 'inline-block',
-          margin: '10px 0',
-          textDecoration: 'underline'
-        }}>Forgot Password?</Link>
-      <Button primary large type="submit">Login</Button>
+
+      <Button primary large type="submit">update</Button>
         
     </form>
   )
 };
 
-export default LoginForm;
+export default UserForm;

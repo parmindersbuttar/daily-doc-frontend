@@ -57,7 +57,7 @@ const WorkJournal = () => {
           Work Journal 
         </Heading>
         <Description>
-          Instead of tediously recording your every action or forgetting what happened in a workday, DailyDoc catalogues your workday. With unlimited historical data access, you can see what you were working on yesterday or last year.
+          Instead of tediously recording your every action or forgetting what happened in a workday, DailyDoc neatly catalogues your activity.
         </Description>
       </RightSection>
     </Main>

@@ -67,7 +67,7 @@ const Title = styled.p`
 
 const items = [
     {
-        title: 'Get rid of "Lite users can only see three months"',
+        title: 'Privacy and unlimited access to your data',
         image: ChartImage
         
     },

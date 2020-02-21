@@ -71,9 +71,12 @@ const Header = (props) => {
           <MenuItem>
             <StyledLink to="/features" active={pathname === '/features'}>Features</StyledLink>
           </MenuItem>
-          {!auth.logged && 
+          {!auth.logged ? 
             <MenuItem>
               <StyledLink to="/sign-in">Sign In</StyledLink>
+            </MenuItem> :
+            <MenuItem>
+              <StyledLink to="/account">Manage Account</StyledLink>
             </MenuItem>
           }
         </Menu>

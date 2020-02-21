@@ -86,7 +86,7 @@ const WhyUs = () => {
               <div>
               <SubHeading>Optimize your</SubHeading>
             <List>
-                {understand.map((item, key) => {
+                {optimise.map((item, key) => {
                     return (
                         <ListItem
                             key={key}

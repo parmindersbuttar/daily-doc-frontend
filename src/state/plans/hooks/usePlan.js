@@ -25,6 +25,8 @@ const usePlans = () => {
         dispatch(getPlanSuccess(resp.plans));
       }
     } catch (err) {
+      setIsLoading(false);
+      dispatch(getPlanFailed('Something Went wrong'));
       console.log('loginUser: ', err)
     }
   }

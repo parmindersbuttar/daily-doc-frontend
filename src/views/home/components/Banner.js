@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
+import history from '../../../utils/history';
 import BannerBackground from '../../../assets/images/bannerBackground.svg';
 import BannerImage from '../../../assets/images/bannerImage.svg';
 import Button from '../../../components/button'
@@ -59,6 +60,11 @@ const BannerImageContainer = styled.img`
 `;
 
 const Banner = () => {
+ 
+  const gotoPlans = () => {
+    history.push('/plans');
+  }
+
   return (
     <Main>
       <LeftSection>
@@ -69,7 +75,7 @@ const Banner = () => {
           DailyDoc helps you understand how you spend your time at work..
         </Description>
         <ButtonContainer>
-          <Button>Get Started</Button>
+          <Button onClick={() => gotoPlans() }>Get Started</Button>
         </ButtonContainer>
       </LeftSection>
       <RightSection>

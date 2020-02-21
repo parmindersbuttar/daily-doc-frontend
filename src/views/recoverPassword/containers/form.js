@@ -15,20 +15,13 @@ const validate = values => {
     errors.email = 'Invalid email address';
   }
 
-  if (!values.password) {
-    errors.password = 'Password is required';
-  } else if (values.password.length < 4) {
-    errors.password = 'Must be 4 characters or more';
-  }
-
   return errors;
 };
 
-const LoginForm = props => {
+const ForgotPasswordForm = props => {
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: ''
+      email: ''
     },
     validate,
     onSubmit: values => {
@@ -45,7 +38,7 @@ const LoginForm = props => {
             name='email'
             id='email'
             autoComplete='email'
-            placeholder={'Email Address'}
+            placeholder={'Enter Email Address'}
             onChange={formik.handleChange('email')}
             onBlur={formik.handleBlur('email')}
             error={!!formik.errors.email}
@@ -55,28 +48,16 @@ const LoginForm = props => {
             <ErrorText>{formik.errors.email}</ErrorText>
         }
       </FormGroup>
-      <FormGroup>
-        <Input
-          id='password'
-          name='password'
-          autoComplete='current-password'
-          type={'password'}
-          placeholder={'Password'}
-          onChange={formik.handleChange('password')}
-          onBlur={formik.handleBlur('password')}
-          error={formik.errors.password}
-          value={formik.values.password}
-        />
-      </FormGroup>
-        <Link to="/recover-password" style={{
+     
+        <Link to="/sign-in" style={{
           display: 'inline-block',
           margin: '10px 0',
           textDecoration: 'underline'
-        }}>Forgot Password?</Link>
-      <Button primary large type="submit">Login</Button>
+        }}>Back to Login</Link>
+      <Button primary large type="submit">send</Button>
         
     </form>
   )
 };
 
-export default LoginForm;
+export default ForgotPasswordForm;

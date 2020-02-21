@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import history from '../utils/history';
 import Linkedin from '../assets/images/linkedin.png';
 import Twitter from '../assets/images/twitter-black-shape.png';
 import Instagram from '../assets/images/instagram.png';
@@ -76,12 +77,15 @@ const CopyText = styled.p`
 `;
 
 const Footer = (props) => {
+    const gotoPlans = () => {
+        history.push('/plans');
+    }
 
     return (
         <Container>
             <ContainerBlue>
                 <Heading>Ready to take back control of your time?</Heading>
-                <StyledButton>Get Started</StyledButton>
+                <StyledButton onClick={() => gotoPlans() }>Get Started</StyledButton>
             </ContainerBlue>
             <SocialMedia>
                 <FollowTitle>
