@@ -76,17 +76,21 @@ const Download = () => {
       <CardContainer>
         {items.map((item, key) => {
           return (
-            <Box
-              key={key}
-              onClick={() => {
-                console.log('OS:', item.title)
-              }}
+            <a
+              class='btn'
+              href={
+                key === 0
+                  ? 'http://3.20.172.101/Downloads/DailyDoc-0.18.1.zip'
+                  : 'http://3.20.172.101/Downloads/DailyDocEXE.zip'
+              }
             >
-              <Card>
-                <CardImage src={item.image} alt={item.title} />
-              </Card>
-              <CardHeading>{item.title}</CardHeading>
-            </Box>
+              <Box key={key}>
+                <Card>
+                  <CardImage src={item.image} alt={item.title} />
+                </Card>
+                <CardHeading>{item.title}</CardHeading>
+              </Box>
+            </a>
           )
         })}
       </CardContainer>

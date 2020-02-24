@@ -63,7 +63,7 @@ const StructuredSprint = () => {
             Structured Sprints 
         </Heading>
         <Description>
-            Overcome procrastination and distractions with Structured Sprints. Simply set a timer for how long you want to sprint; after the timer expires your computer will shut off. This allows you to neatly space out our workday with intense bouts of work.
+            Overcome procrastination and distractions with Structured Sprints. Simply set a timer for how long you want to sprint; after the timer expires your computer will shut off. This allows you to neatly space out your workday with intense bouts of work.
         </Description>
       </LeftSection>
       <RightSection>
