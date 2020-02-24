@@ -132,7 +132,7 @@ const LoginForm = props => {
             name='planId'
             id='planId'
             autoComplete='planId'
-            placeholder={'Select a plab'}
+            placeholder={'Select a plan'}
             onChange={formik.handleChange('planId')}
             onBlur={formik.handleBlur('planId')}
             error={!!formik.errors.planId}
