@@ -84,7 +84,7 @@ const items = [
         image: ProgressImage
     },
     {
-        title: 'Works across MacOS, Windows, Linux, iOS, Android, and ChromeOS',
+        title: 'Works across MacOS, Windows, Linux and ChromeOS',
         image: DataImage
     },
     {

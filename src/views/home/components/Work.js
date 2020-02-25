@@ -68,7 +68,7 @@ const features = [
         image: StructuredFeatureImage
     },
     {
-        title: 'Trends nd weekly reports',
+        title: 'Trends and weekly reports',
         image: TrendsImage
     },
     {
