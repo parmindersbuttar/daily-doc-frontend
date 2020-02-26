@@ -50,7 +50,7 @@ const StyledButton = styled(Button)`
 
 const Account = () => {
   const { auth, updateUser, toggleSubscription, isLoading } = useLogin();
-  console.log(auth)
+  console.log(auth.user)
   return (
     <Main>
       <Spinner show={isLoading} />
@@ -65,12 +65,15 @@ const Account = () => {
             />
         </FormContainer>
         <FormContainer>
-          <Cards
-            cvc="***"
-            expiry={"12/18"}
-            name={"test"}
-            number={4242424242424242}
-          />
+          {auth.user.PaymentMethods.map((card, key) => {
+            return <Cards
+              key={key}
+              cvc="***"
+              expiry={`${card.exp_month}/${card.exp_year}`}
+              name={auth.user.name}
+              number={`${card.last4}`}
+            />
+          })}
           <StyledButton onClick={() => toggleSubscription(!auth.user.subscriptionActive)}>{auth.user.subscriptionActive ? 'Unsubscribe' : 'subscribe'}</StyledButton>
         </FormContainer>
     </Container>
