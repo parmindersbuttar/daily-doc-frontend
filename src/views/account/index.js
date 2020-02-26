@@ -1,10 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import Cards from 'react-credit-cards';
 import useLogin from '../../state/auth/hooks/useLogin';
 import BannerBackground from '../../assets/images/bannerBackground.svg';
 import Spinner from '../../components/spinner';
+import Button from '../../components/button';
 import FormContainer from './containers/FormContainer';
 import Form from './containers/form';
+import 'react-credit-cards/es/styles-compiled.css';
+
+const Main = styled.div`
+  display: flex;
+  padding: 30px;
+  flex-direction: column
+`;
 
 const Container = styled.div`
   width: 100%;
@@ -12,7 +21,8 @@ const Container = styled.div`
   margin: 0 auto;
   padding: 15px;
   display: flex;
-  flex-direction: column;
+  position: relative;
+  z-index: 99;
 `;
 
 const Title = styled.h1`
@@ -32,24 +42,40 @@ const BannerBackgroundContainer = styled.img`
   max-width: 100%;
 `;
 
+const StyledButton = styled(Button)`
+  margin-top: 20px;
+`;
+
 
 
 const Account = () => {
-  const { auth, updateUser, isLoading } = useLogin();
+  const { auth, updateUser, toggleSubscription, isLoading } = useLogin();
   console.log(auth)
   return (
-    <Container>
+    <Main>
       <Spinner show={isLoading} />
       <BannerBackgroundContainer src={BannerBackground} alt="banner background" />
       <Title>Manage your account</Title>
-      <FormContainer>
-          <Form
-            onSubmit={updateUser}
-            error={auth.error}
-            user={auth.user}
+      <Container>
+        <FormContainer>
+            <Form
+              onSubmit={updateUser}
+              error={auth.error}
+              user={auth.user}
+            />
+        </FormContainer>
+        <FormContainer>
+          <Cards
+            cvc="***"
+            expiry={"12/18"}
+            name={"test"}
+            number={4242424242424242}
           />
-      </FormContainer>
-   </Container>
+          <StyledButton onClick={() => toggleSubscription(!auth.user.subscriptionActive)}>{auth.user.subscriptionActive ? 'Unsubscribe' : 'subscribe'}</StyledButton>
+        </FormContainer>
+    </Container>
+    </Main>
+    
   )
 };
 

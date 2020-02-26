@@ -109,7 +109,7 @@ export default () => {
       <Slides>
         {testimonials.map((testimonial, key) => {
           return (
-            <Slide active={activeItemIndex === key}>
+            <Slide active={activeItemIndex === key} key={key}>
               <ImageContainer>
                 <Img src={testimonial.image} alt={testimonial.name} />
                 <Title>{testimonial.company}</Title>
@@ -123,7 +123,7 @@ export default () => {
       <DotGroup>
         {testimonials.map((testimonial, key) => {
           return (
-            <Dot active={activeItemIndex === key} onClick={() => setActiveItemIndex(key)}/>
+            <Dot key={key} active={activeItemIndex === key} onClick={() => setActiveItemIndex(key)}/>
           );
         })}
       </DotGroup>

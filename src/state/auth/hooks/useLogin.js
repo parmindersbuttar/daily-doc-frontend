@@ -5,7 +5,8 @@ import {
   recoverPasswordApi, 
   validateApi,
   resetPasswordApi,
-  updateApi
+  updateApi,
+  toggleSubscriptionApi
 } from '../queries';
 import { useStateValue } from '../../index';
 import history from '../../../utils/history';
@@ -137,7 +138,26 @@ const useProducts = () => {
     }
   }
 
-  return { auth, loginUser, validateUser, recoverPassword, resetPassword, registerUser, updateUser, isLoading, emailSent };
+  const toggleSubscription = async (value) => {
+   
+    try {
+      setIsLoading(true);
+      const token = localStorage.getItem('token');
+      const resp = await toggleSubscriptionApi(value,token);
+      setIsLoading(false);
+      if (resp.success) {
+        validateUser(token);
+      } else if(resp) {
+        dispatch(loginFailed(resp.msg || resp.error));       
+      }
+    } catch (err) {
+      setIsLoading(false);
+      dispatch(loginFailed('Something went wrong. Please try after some time'));
+      console.log('toggleSubscription: ', err)
+    }
+  }
+
+  return { auth, loginUser, validateUser, toggleSubscription, recoverPassword, resetPassword, registerUser, updateUser, isLoading, emailSent };
 }
 
 export default useProducts
