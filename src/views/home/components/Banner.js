@@ -72,7 +72,7 @@ const Banner = () => {
           Effortless Productivy
         </Heading>
         <Description>
-          DailyDoc helps you understand how you spend your time at work..
+          DailyDoc helps you understand how you spend your time.
         </Description>
         <ButtonContainer>
           <Button onClick={() => gotoPlans() }>Get Started</Button>
