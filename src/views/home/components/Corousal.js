@@ -1,85 +1,133 @@
-import React, { useEffect } from 'react'
-import styled from 'styled-components'
-import CorousalItem from './CorousalItem'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-// import './slider.css'
-import Slider from 'react-slick'
-import User from '../../../assets/images/userimage.svg'
-import User2 from '../../../assets/images/userimage2.svg'
-import User3 from '../../../assets/images/userimage3.svg'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import LucasImage from '../../../assets/images/lucas.png';
+import BenImage from '../../../assets/images/ben.png';
+import ErinImage from '../../../assets/images/erin.png';
 
-const Main = styled.div`
-  // display: flex;
+const CarousalContainer = styled.div`
+  padding: 0 40px;
+  margin: 30px 0;
+  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 150px;
-  max-width: 70%;
-  margin: 100px auto 20px auto;
-`
+`;
 
-const Description = styled.p`
-  font-weight: 500;
-  font-size: 19.228px;
-  line-height: 36px;
-  letter-spacing: 0.38456px;
-  color: #7e8594;
-  text-align: center;
-  margin-bottom: 20px
+const Slide = styled.div`
+  background-color: #FFFFFF;
+  box-shadow: 0px 4px 46px rgba(140, 156, 171, 0.3);
+  height: 462px;
+  flex: 1;
+  padding: 20px;
+  transition: all .3s;
+  opacity: ${props => props.active ? 1 : 0.5}
+  transform: ${props => props.active ? 'translateZ(0)' : 'perspective(500px) translateZ(-100px)'};
+`;
 
-`
+const Slides = styled.div`
+  padding: 0 40px;
+  margin: 30px 0;
+  display: flex;
+  flex: 1;
+`;
+const DotGroup = styled.div`
+  display: flex;
+  justify-content: center
+`;
 
-const data = [
+const Dot = styled.div`
+  background: ${props => props.active ? '#4BBAFB' : '#D7DFF0'};
+  mix-blend-mode: normal;
+  opacity: 0.84;
+  height: 10px;
+  width: 10px;
+  border-radius: 100%;
+  margin: 0 10px;
+  cursor: pointer
+`;
+
+const ImageContainer = styled.div`
+  display: flex;
+`;
+
+const Img = styled.img`
+  width: 110px;
+  height: 110px;
+  border-radius: 100%
+`;
+
+const Title = styled.h3`
+  font-weight: bold;
+  font-size: 33.228px;
+  line-height: 41px;
+  letter-spacing: 0.66456px;
+  color: #303F61;
+  padding-left: 20px;
+`;
+
+const Occupation = styled.p`
+  font-size: 18.4645px;
+  line-height: 33px;
+  letter-spacing: 0.36929px;
+  color: #7E8594;
+`;
+
+const BodyText = styled.p`
+  font-size: 16px;
+  line-height: 33px;
+  letter-spacing: 0.36929px;
+  color: #7E8594;
+`;
+
+const testimonials = [
   {
-    image: User,
-    title: 'Student',
     name: 'Erin',
-    occupation: 'University of Chicago',
-    description:
-      "With technology's omnipresence in my life, I often found hours to slip away. However, now I am in more control; DailyDoc allows me to see how I spent my time and where I lose my flow."
+    occupation: 'Student',
+    image: ErinImage,
+    company: 'University of Chacago',
+    body: 'With technology\'s omnipresence in my life, I often found hours to slip away. However, now I am in more control; DailyDoc allows me to see how I spent my time and where I lose my flow.'
   },
   {
-    image: User3,
-    title: 'Knowledge worker',
     name: 'Lucas',
-    occupation: 'lawyer',
-    description:
-      'DailyDoc has been instrumental in being able to track my hours and bill clients with more precision. Being able to see where my productivity dips (11 AM after donuts) allowed me to strategize and better structure my day.'
+    occupation: 'Lawyer',
+    image: LucasImage,
+    company: 'Knowledge Worker',
+    body: 'DailyDoc has been instrumental in being able to track my hours and bill clients with more precision. Being able to see where my productivity dips (11 AM after donuts) allowed me to strategize and better structure my day.'
   },
   {
-    image: User2,
-    title: 'Knowledge worker',
     name: 'Ben',
     occupation: 'Developer',
-    description:
-      'Spending my days in front of screen causes all the hours to kind of mesh together. With DailyDoc, I can easily look back to see what I was doing at what time. The sprints are killer but effective. Nice job guys!'
-  }
+    image: BenImage,
+    company: 'Knowledge Worker',
+    body: 'Spending my days in front of screen causes all the hours to kind of mesh together. With DailyDoc, I can easily look back to see what I was doing at what time. The sprints are killer but effective. Nice job guys!'
+  },
 ]
 
-const Corousal = () => {
-  useEffect(() => {}, [])
-  const settings = {
-    centerMode: true,
-    centerPadding: '380px',
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: false
-  }
+export default () => {
+  const [activeItemIndex, setActiveItemIndex] = useState(1);
+  
   return (
-    <Main>
-      <Description>You’ll love DailyDoc whether you’re a</Description>
-      <Slider {...settings}>
-        {data.map(item => (
-          <CorousalItem item={item} />
-        ))}
-      </Slider>
-    </Main>
-  )
-}
-
-export default Corousal
-
+    <CarousalContainer>
+      <Slides>
+        {testimonials.map((testimonial, key) => {
+          return (
+            <Slide active={activeItemIndex === key}>
+              <ImageContainer>
+                <Img src={testimonial.image} alt={testimonial.name} />
+                <Title>{testimonial.company}</Title>
+              </ImageContainer>
+              <Occupation>{`${testimonial.name}, ${testimonial.occupation}`}</Occupation>
+              <BodyText>{testimonial.body}</BodyText>
+            </Slide>
+          );
+        })}
+      </Slides>
+      <DotGroup>
+        {testimonials.map((testimonial, key) => {
+          return (
+            <Dot active={activeItemIndex === key} onClick={() => setActiveItemIndex(key)}/>
+          );
+        })}
+      </DotGroup>
+      
+    </CarousalContainer>
+  );
+};

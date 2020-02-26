@@ -14,7 +14,7 @@ const Home = () => {
       <AdditionalBenefits />
       <WhyUs />
       <FindOut />
-      {/* <Corousal /> */}
+      <Corousal />
     </div>
   )
 }

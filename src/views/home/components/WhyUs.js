@@ -30,6 +30,7 @@ const Container = styled.div`
 
 const List = styled.ul`
     list-style: disc;
+    padding: 0 20px;
 `;
 
 const ListItem = styled.li`
