@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Cards from 'react-credit-cards';
 import useLogin from '../../state/auth/hooks/useLogin';
 import BannerBackground from '../../assets/images/bannerBackground.svg';
 import Spinner from '../../components/spinner';
@@ -23,6 +22,9 @@ const Container = styled.div`
   display: flex;
   position: relative;
   z-index: 99;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const Title = styled.h1`
@@ -34,6 +36,14 @@ const Title = styled.h1`
   text-align: center;
 `;
 
+const SubTitle = styled.h2`
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 61px;
+  letter-spacing: 2.77778px;
+  color: #212E4A;
+  text-align: center;
+`;
 
 const BannerBackgroundContainer = styled.img`
   position: absolute;
@@ -46,7 +56,13 @@ const StyledButton = styled(Button)`
   margin-top: 20px;
 `;
 
-
+const Table = styled.table`
+  td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+`;
 
 const Account = () => {
   const { auth, updateUser, toggleSubscription, isLoading } = useLogin();
@@ -58,6 +74,7 @@ const Account = () => {
       <Title>Manage your account</Title>
       <Container>
         <FormContainer>
+          <SubTitle>Personal Detail</SubTitle>
             <Form
               onSubmit={updateUser}
               error={auth.error}
@@ -65,18 +82,28 @@ const Account = () => {
             />
         </FormContainer>
         <FormContainer>
-          {auth.user.PaymentMethods.map((card, key) => {
-            return <Cards
-              key={key}
-              cvc="***"
-              expiry={`${card.exp_month}/${card.exp_year}`}
-              name={auth.user.name}
-              number={`${card.last4}`}
-            />
-          })}
+          <SubTitle>Your Cards</SubTitle>
+          <Table>
+            <thead>
+              <tr>
+                <th>Card Number</th>
+                <th>Expiry</th>
+                <th>Customer Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {auth.user.PaymentMethods.map((card, key) => {
+                return <tr>
+                  <td>{card.last4}</td>
+                  <td>{`${card.exp_month}/${card.exp_year}`}</td>
+                  <td>{auth.user.name}</td>
+                </tr>
+              })}
+            </tbody>
+          </Table>
           <StyledButton onClick={() => toggleSubscription(!auth.user.subscriptionActive)}>{auth.user.subscriptionActive ? 'Unsubscribe' : 'subscribe'}</StyledButton>
         </FormContainer>
-    </Container>
+      </Container>
     </Main>
     
   )
