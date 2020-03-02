@@ -82,7 +82,7 @@ const testimonials = [
     name: 'Erin',
     occupation: 'Student',
     image: ErinImage,
-    company: 'University of Chacago',
+    company: 'University of Chicago',
     body: 'With technology\'s omnipresence in my life, I often found hours to slip away. However, now I am in more control; DailyDoc allows me to see how I spent my time and where I lose my flow.'
   },
   {
